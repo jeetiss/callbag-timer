@@ -1,49 +1,33 @@
-import forEach from 'callbag-for-each'
-import interval from 'callbag-interval'
 import pipe from 'callbag-pipe'
-import takeUntil from 'callbag-take-until'
+import { willBe } from '@jeetiss/callbag-testing-utils'
 
 import timer from '../src'
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const values = {
+  a: 0,
+  b: 1,
+  c: 2,
+  d: 3,
+  e: 4,
+}
 
-test('works with number', () => {
-  const actual = []
-
+test('works with number', () =>
   pipe(
     timer(10),
-    forEach(data => actual.push(data)),
-  )
-
-  return delay(20).then(() => {
-    expect(actual).toEqual([0])
-  })
-})
+    willBe('--a--|', values),
+  ))
 
 test('works with Date', () => {
-  const actual = []
   const now = Date.now()
 
-  pipe(
+  return pipe(
     timer(new Date(now + 10)),
-    forEach(data => actual.push(data)),
+    willBe('--a--|', values),
   )
-
-  return delay(20).then(() => {
-    expect(actual).toEqual([0])
-  })
 })
 
-test('works with period argument', () => {
-  const actual = []
-
+test('works with period argument', () =>
   pipe(
     timer(20, 10),
-    takeUntil(interval(55)),
-    forEach(data => actual.push(data)),
-  )
-
-  return delay(55).then(() => {
-    expect(actual).toEqual([0, 1, 2, 3])
-  })
-})
+    willBe('--a--b--c--d--e--', values),
+  ))
