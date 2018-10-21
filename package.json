@@ -33,7 +33,7 @@
     "@babel/core": "^7.1.2",
     "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
-    "@jeetiss/callbag-testing-utils": "0.0.2",
+    "@jeetiss/callbag-marble-tester": "0.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "callbag-pipe": "^1.1.1",
     "husky": "^1.1.0",

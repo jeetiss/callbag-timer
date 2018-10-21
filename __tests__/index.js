@@ -1,5 +1,5 @@
 import pipe from 'callbag-pipe'
-import { willBe } from '@jeetiss/callbag-testing-utils'
+import { willBe } from '@jeetiss/callbag-marble-tester'
 
 import timer from '../src'
 
@@ -13,21 +13,24 @@ const values = {
 
 test('works with number', () =>
   pipe(
-    timer(10),
-    willBe('--a--|', values),
+    timer(30),
+    willBe('--(a|)'),
   ))
 
-test('works with Date', () => {
-  const now = Date.now()
-
-  return pipe(
-    timer(new Date(now + 10)),
-    willBe('--a--|', values),
-  )
-})
-
-test('works with period argument', () =>
+test('works with Date', () =>
   pipe(
-    timer(20, 10),
-    willBe('--a--b--c--d--e--', values),
+    timer(new Date(Date.now() + 30)),
+    willBe('--(a|)'),
   ))
+
+test('works with Date', () =>
+  pipe(
+    timer(new Date(Date.now() + 50)),
+    willBe('----(a|)'),
+  ))
+
+// test('works with period argument', () =>
+//   pipe(
+//     timer(20, 10),
+//     willBe('--a--b--c--d--e--', values),
+//   ))
